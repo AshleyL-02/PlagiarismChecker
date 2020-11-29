@@ -30,7 +30,7 @@ public class Converter {
                 NGrams.add(nGram);
                 convert("", indexIntoDocument - 3);
             } else {
-                nGram = nGram + " " + document.get(indexIntoDocument);
+                nGram += " " + document.get(indexIntoDocument);
                 convert(nGram, indexIntoDocument + 1);
             }
         } else {
@@ -39,11 +39,11 @@ public class Converter {
     }
 
     private String cleanToken(String token) {
-        return token.toLowerCase().replaceAll("[.,<>()!@#$%^&*{}~`]", "");
+        return token.toLowerCase().replaceAll("[.,<>()!?@#$%^&*{}~:;|/`]", "");
     }
 
     public static void main(String[] args) {
-        Converter c = new Converter("i love dOGs so, much. dude YEA");
+        Converter c = new Converter("i love dOGs so, much. don't dude YEA");
         System.out.println(c.getNGrams());
     }
 }
