@@ -3,7 +3,7 @@ import java.util.*;
 public class Converter {
 
     private List<String> document;
-    private Set<String> NGrams;
+    private Set<String> ngrams;
 
     public Converter(String document) {
         this(new Scanner(document));
@@ -11,7 +11,7 @@ public class Converter {
 
     public Converter(Scanner document) {
         this.document = new ArrayList<>();
-        this.NGrams = new HashSet<>();
+        this.ngrams = new HashSet<>();
         while (document.hasNext()) {
             this.document.add(cleanToken(document.next()));
         }
@@ -19,7 +19,7 @@ public class Converter {
     }
 
     public Set<String> getNGrams() {
-        return NGrams;
+        return ngrams;
     }
 
     //n-gram lengths of four
@@ -27,14 +27,14 @@ public class Converter {
         if (indexIntoDocument < document.size()) {
             StringTokenizer nGramTokenizer = new StringTokenizer(nGram);
             if (nGramTokenizer.countTokens() == 4) {
-                NGrams.add(nGram);
+                ngrams.add(nGram);
                 convert("", indexIntoDocument - 3);
             } else {
                 nGram += " " + document.get(indexIntoDocument);
                 convert(nGram, indexIntoDocument + 1);
             }
         } else {
-            NGrams.add(nGram);
+            ngrams.add(nGram);
         }
     }
 
