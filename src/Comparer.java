@@ -1,6 +1,7 @@
 import java.util.Set;
 
 //program should figure out if I'm quoting shakespeare?
+// https://github.com/edent/Open-Source-Shakespeare
 
 // Comparer finds n-gram equality between two document n-grams
 public class Comparer {
