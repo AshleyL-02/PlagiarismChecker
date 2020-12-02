@@ -1,0 +1,69 @@
+Group 29
+Ashley Luty, Joshua Wang, Emma Chen
+
+Converter Class
+___________________________
+
+Fields
+
+The Converter class contains two private fields. One field is named "document" and is of type List<String>
+and represents the provided document that has been converted into a List where every element within the 
+list is one token from the document added in the order that the document is written in. For example,
+if the provided document were the String "i love pizza" the elements within the List would be "i", "love",
+and "pizza" stored in that order.
+
+The other field of the Converter class is named "ngrams" and is of type Set<String> and stores the document
+split up into n-grams of four. For example, if the provided document was the String "i love pizza so much",
+the Set field would store two strings of n-grams: "i love pizza so" and "love pizza so much". N-grams are used
+in natural language processing to process documents, and in our case, to help us convert the provided document
+into a form that we can more easily compare with other documents.
+
+Constructors
+
+The Converter class contains two constructors. The first one is a constructor that takes in a String representation
+of the provided document. The String constructor then converts the provided String into a Scanner and passes
+the Scanner into the other constructor. We chose to do this because we found while writing the constructors that
+there was a lot of redundant code between both constructors that could easily be factored out. 
+
+The second constructor, as mentioned before, takes in a provided document of type Scanner. We chose to include
+a second constructor of type Scanner so that the user had the choice to use a file version of their document 
+rather than a String if they preferred. Within the Scanner constructor, the provided document is put into
+the List field form as described before and a call to a private method called convert will do the n-gram
+separation. In addition, before adding a token from the provided document to the List field, a call to the private
+cleanToken method will change the token to lower case letters and remove any extraneous punctuation.
+
+N-Gram Separation
+
+The N-gram separation portion of the Converter class is done within a private method called convert that is called
+within the constructor of the Converter class. If we implemented convert using an iterative approach, we would face
+a huge time complexity and runtime issue if the provided document were really large. Thus, we decided to employ a
+recursive enumeration approach for the behavior.
+
+The convert class takes in two parameters, a String called "ngram" and an int "indexIntoDocument." The String "ngram"
+is the recursive result that is being built up with every recursive call until it reaches the base case (which is when
+the String contains four tokens to build n-grams of four). Once the current n-gram is done being built, it is added to 
+the Set<String> ngrams field and the recursive call is restarted for a new n-gram. This process continues until the int
+indexIntoDocument parameter is equal to the size of the List field that represents the original provided document.
+
+Comparer Class
+___________________________
+
+The Comparer class is the class that does the actual comparison between the two documents (specifically their n-grams).
+
+Output
+___________________________
+
+The ouput of our entire program is an approximate percentage of the amount of text plagiarised from the document that is being
+checked for plagiarism. We have decided to name this value the similarity score of the two documents. The n-grams of the
+documents are processed by the compareNGrams method in the Comparer class which will come up with the similarity score. Every time 
+there is the same n-gram in both documents, a counter (that counts how many n-grams the two documents have in common) is incremented.
+At the very end, this counter is divided by the total number of n-grams in the document that is being checked for plagirism to come up
+with an approximate plagiarism percentage. This method has been elaborated more in the Comparer class section of this guide.
+
+We cannot say the similarity score is an exact percentage because, although the n-grams technique can reduce 
+the number of false positives (text that is thought to be plagiarised but actually isn't) found between two documents, it is still not
+perfect. Thus, rather than just using this similarity score as the output of our program, we have decided to use the score to
+as a way to categorize the amount plagiarized as "very small," "small," "medium," "large," and "almost all."
+
+
+synonym similarity vs. exact similarity
