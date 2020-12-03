@@ -3,6 +3,8 @@ import java.util.Set;
 //program should figure out if I'm quoting shakespeare?
 // https://github.com/edent/Open-Source-Shakespeare
 
+//https://www.kaggle.com/duketemon/wordnet-synonyms
+
 // Comparer finds n-gram equality between two document n-grams
 public class Comparer {
     
