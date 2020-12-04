@@ -4,6 +4,11 @@ Ashley Luty, Joshua Wang, Emma Chen
 Converter Class
 ___________________________
 
+Overview
+
+The Converter class is the class that process the two documents before they go through the check. The converter class
+does the n-gram seperation.
+
 Fields
 
 The Converter class contains two private fields. One field is named "document" and is of type List<String>
@@ -48,22 +53,79 @@ indexIntoDocument parameter is equal to the size of the List field that represen
 Comparer Class
 ___________________________
 
-The Comparer class is the class that does the actual comparison between the two documents (specifically their n-grams).
+Overview
+
+The Comparer class is the class that does the actual plagiarism comparison between the two sets of n-grams for of the documents.
+The class does two kinds of checks, one for exact n-gram similarity and one that includes synonyms of words.
+
+Fields and Constructors
+
+The Comparer class maintains three fields. Two of which are Set<String> which hold the n-gram Set<String> for the two documents that are
+up for comparison. The other field is a double labeled synonymScore which represents the 
+
+N-Gram Comparison
+
+The compareNGrams method is the method that does the actual plagiarism check between the two documents. The compareNGrams method iterates through
+one of the n-gram Set<String> of the documents and checks whether the other document's n-gram Set<String> contains the same n-gram. If so, a counter
+called copied is incremented. If not, the method then checks whether a synonym of a word in the n-gram that is currently being focused on is within
+an n-gram of the other document. If so, another counter called similar is incremented. At the end, these two counters are divided by the size of the
+n-gram Set<String> of the document being suspected of plagiarism and multiplied by 100.00 to give a percentage score. The copied percentage score is 
+returned by the method as the approximate similarity score (excluding synonyms). The synonym percentage score is stored within the synonymScore field
+and is used in the getSynonymScore to categorize how plagiarized a document is the the other when including synonyms of words (the synonym similarity
+score is elaborated on within the Output section of the design guide).
+
+Plagiarism Scores
+
+The score that returned from the compareNGrams method is the one that measures exact similarity between the two documents (excluding synonyms).
+The categorization that is returned from the getSynonymScore is a category of how much the document is plagiarized from the other when including
+synonyms. This is elaborated on in the Output section of the desgin guide.
+
+
+SynonymMap Class
+___________________________
+
+Overview
+
+The SynonymMap class contains a map that maps a lot of words to some of their respective synonyms. It uses the provided synonyms.txt file to initialize
+that synonym map.
+
+Fields and Constructors
+
+The SynonymMap class has only one field which is the map that maps words to some of their respective synonyms. The constructor for SynonymMap uses a 
+provided file named synonyms.txt that contains several words and their synonyms and puts it into a map.
+
+Checking for Synonyms
+
+In the compareNGrams method of the Comparer class, it also calculates a synonym similarity percentage that is used to get the synonym similarity score 
+categorization. With the help of the synonymsInSet method that takes in two individual n-grams and checks if there are any synonyms in them. The 
+areSynonyms methods that takes in two words is also used within the compareNGrams method of the Comparer class to help calculate the synonym similarity
+percentage score.
 
 Output
 ___________________________
 
+Overview
+
 The ouput of our entire program is an approximate percentage of the amount of text plagiarised from the document that is being
-checked for plagiarism. We have decided to name this value the similarity score of the two documents. The n-grams of the
-documents are processed by the compareNGrams method in the Comparer class which will come up with the similarity score. Every time 
-there is the same n-gram in both documents, a counter (that counts how many n-grams the two documents have in common) is incremented.
-At the very end, this counter is divided by the total number of n-grams in the document that is being checked for plagirism to come up
-with an approximate plagiarism percentage. This method has been elaborated more in the Comparer class section of this guide.
+checked for plagiarism (copied directly) and a synonym similarity categorization (determing how much was plagiarized when we include synonyms).
+We have decided to name these value the similarity score and the synonym similarity score respectively. 
 
-We cannot say the similarity score is an exact percentage because, although the n-grams technique can reduce 
-the number of false positives (text that is thought to be plagiarised but actually isn't) found between two documents, it is still not
-perfect. Thus, rather than just using this similarity score as the output of our program, we have decided to use the score to
-as a way to categorize the amount plagiarized as "very small," "small," "medium," "large," and "almost all."
+Similarity Score
 
+The n-grams of the documents are processed by the compareNGrams method in the Comparer class which will return ONLY the similarity score.
+Every time there is the same n-gram in both documents, a counter (that counts how many n-grams the two documents have in common) is 
+incremented. At the very end, this counter is divided by the total number of n-grams in the document that is being checked for 
+plagiarism to come up with an approximate plagiarism percentage. While the method is working on the similarity score, it is also doing
+the same thing with the synonym similarity score (but including synonyms) This method has been elaborated more in the Comparer class section
+of the design guide. 
 
-synonym similarity vs. exact similarity
+Synonym Similarity Score/Categorization
+
+As for the synonym similarity score, we have included a method within the Comparer class called getSynonymScore which can only be called after
+compareNGrams has been called. We cannot say the synonym similarity score is an exact percentage because, although the n-grams technique can reduce 
+the number of false positives (text that is thought to be plagiarised but actually isn't) found between two documents, it is still not perfect. In 
+addition, because we treat each n-gram as a single entity (rather than comprised of multiple tokens), if one word doesn't match between two n-grams,
+then they are automatically labeled as unequal. Thus, rather than just using this similarity score as the output of our program, we have decided to
+use the synonym similarity score to as a way to categorize the amount plagiarized based on synonyms as approximately "all," "almost all," "most of it,
+"half of it," "a small part of it," and "a negligible amount."
+

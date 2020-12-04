@@ -60,8 +60,21 @@ public class Comparer {
         return (double) ((int) (((double) copied / (double) ngrams1.size() * 100.00) * 100.00) / 100.00);
     }
 
-    //post: returns the similarity score based on synonyms
-    public double getSynonymScore() {
-        return synonymScore;
+    //post: returns the similarity score categorization that includes synonyms
+    public String getSynonymScore() {
+        String ret = "When including synonyms, the amount plagiarized is approximately ";
+        if (synonymScore == 100.00) {
+            return ret + "all of it: " + synonymScore + "%";
+        } else if (synonymScore < 100.00 && synonymScore >= 80.00) {
+            return ret + "almost all of it: " + synonymScore + "%";
+        } else if (synonymScore < 80.00 && synonymScore >= 60.00) {
+            return ret + "most of it: " + synonymScore + "%";
+        } else if (synonymScore < 60.00 && synonymScore >= 40.00) {
+            return ret + "half of it: " + synonymScore + "%";
+        } else if (synonymScore < 40.00 && synonymScore >= 20.00) {
+            return ret + "a small part of it: " + synonymScore + "%";
+        } else {
+            return ret + "a negligible part of it: " + synonymScore + "%";
+        }
     }
 }
