@@ -47,12 +47,11 @@ public class SynonymMap {
     public boolean synonymInSet(String nGram, String nGramOther) {
         List<String> nGramSplitted = new ArrayList<String>(Arrays.asList(nGram.split(" ")));
         List<String> nGramOtherSplitted = new ArrayList<String>(Arrays.asList(nGramOther.split(" ")));
-        for (String token: nGramSplitted) {
-            if (nGramOtherSplitted.contains(token)) {
+        for (int i = 0; i < nGramOtherSplitted.size(); i++) {
+            if (areSynonyms(nGramOtherSplitted.get(i), nGramSplitted.get(i))) {
                 return true;
             }
         }
         return false;
     }
-
 }
