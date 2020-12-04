@@ -19,6 +19,14 @@ import java.awt.event.ActionEvent;
 
 //developed with eclipse windowbuilder plugin
 
+/*
+ * The java.awt.TextArea could be monitored for changes by adding a TextListener for TextEvents. In the JTextComponent based components, changes are broadcasted from the model via a DocumentEvent to DocumentListeners. The DocumentEvent gives the location of the change and the kind of change if desired. The code fragment might look something like:
+
+    DocumentListener myListener = ??;
+    JTextArea myArea = ??;
+    myArea.getDocument().addDocumentListener(myListener);
+ */
+
 public class WindowUI extends JFrame {
 
     private JPanel contentPane;
@@ -31,23 +39,23 @@ public class WindowUI extends JFrame {
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    WindowUI frame = new WindowUI();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+//    public static void main(String[] args) {
+//        EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    WindowUI frame = new WindowUI();
+//                    frame.setVisible(true);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
 
     /**
      * Create the frame.
      */
-    public WindowUI() {
+    public WindowUI(ActionListener checkButtonActionListener) {
         setPreferredSize(new Dimension(600, 400));
         setMinimumSize(new Dimension(400, 300));
         setSize(new Dimension(610, 511));
@@ -119,11 +127,7 @@ public class WindowUI extends JFrame {
         
         // Check Button
         checkButton = new JButton("Check");
-        checkButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                checkButtonPressed();
-            }
-        });
+        checkButton.addActionListener(checkButtonActionListener);
         checkButton.setAlignmentY(Component.TOP_ALIGNMENT);
         checkButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         verticalBox_3.add(checkButton);
@@ -159,10 +163,12 @@ public class WindowUI extends JFrame {
         verticalBox_4.add(combinedSimilarityLabel);
     }
     
-    // Event helper methods
-    private void checkButtonPressed() {
-        // call main, send documents as parameters
+    // Display information in/out methods
+    public DocumentPair getDocumentPair() {
+        return new DocumentPair(mainDocTextArea.getText(), comparedDocTextArea.getText())
     }
-    
+    public void displaySimilarityScores(DocumentPair docs) {
+        
+    }
     
 }

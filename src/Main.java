@@ -26,10 +26,10 @@ public class Main {
         //  plagiarized from the document of d thus, Converter c is written before Converter d
         //  (in the parameters)
         Comparer compareCD = new Comparer(c, d);
-        double similarityScore = compareCD.compareNGrams();
+        compareCD.compareNGrams();
         System.out.println(cNGrams);
         System.out.println(dNGrams);
-        System.out.println(similarityScore);
+        System.out.println(compareCD.getSimilarityScore());
         System.out.println(compareCD.getSynonymScore());
 
         //TEST HERE

@@ -15,6 +15,7 @@ public class Comparer {
     //off of
     private Set<String> ngrams2;
 
+    private double exactScore;
     //approximate score (out of 100.00) of how SIMILAR (not just copied text) the two documents are to each
     //other
     private double synonymScore;
@@ -32,7 +33,7 @@ public class Comparer {
     //post: returns a double score (out of 100.00) that is number of n-grams in that are exactly the same
     //between the two documents divided by the total number of n-grams of the document
     //suspected of plagiarism. also initializes the (double) synonymScore field
-    public double compareNGrams() throws FileNotFoundException {
+    public void compareNGrams() throws FileNotFoundException {
         // choose smaller set
         Set<String> ngrams = ngrams1;
         Set<String> ngramsOther = ngrams2;
@@ -57,11 +58,18 @@ public class Comparer {
             }
         }
         synonymScore = (double) ((int) (((double) similar / (double) ngrams1.size() * 100.00) * 100.00) / 100.00);
-        return (double) ((int) (((double) copied / (double) ngrams1.size() * 100.00) * 100.00) / 100.00);
+        exactScore = (double) ((int) (((double) copied / (double) ngrams1.size() * 100.00) * 100.00) / 100.00);
+    }
+    
+    public double getExactScore() {
+        return exactScore;
+    }
+    public double getSynonymScore() {
+        return synonymScore;
     }
 
     //post: returns the similarity score categorization that includes synonyms
-    public String getSynonymScore() {
+    public String getSynonymScoreMessage() {
         String ret = "When including synonyms, the amount plagiarized is approximately ";
         if (synonymScore == 100.00) {
             return ret + "all of it: " + synonymScore + "%";
