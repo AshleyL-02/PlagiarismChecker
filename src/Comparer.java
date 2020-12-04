@@ -28,12 +28,14 @@ public class Comparer {
     public Comparer(Converter c1, Converter c2) {
         ngrams1 = c1.getNGrams();
         ngrams2 = c2.getNGrams();
+        
+        compareNGrams();
     }
 
     //post: returns a double score (out of 100.00) that is number of n-grams in that are exactly the same
     //between the two documents divided by the total number of n-grams of the document
     //suspected of plagiarism. also initializes the (double) synonymScore field
-    public void compareNGrams() throws FileNotFoundException {
+    private void compareNGrams() throws FileNotFoundException {
         // choose smaller set
         Set<String> ngrams = ngrams1;
         Set<String> ngramsOther = ngrams2;

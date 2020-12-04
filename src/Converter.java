@@ -5,6 +5,7 @@
 
 import java.util.*;
 
+// rename to NGrams?
 public class Converter {
 
     //List<String> document is the user-provided document split by its tokens
