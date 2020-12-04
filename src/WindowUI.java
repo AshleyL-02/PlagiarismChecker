@@ -14,12 +14,19 @@ import javax.swing.JScrollPane;
 import javax.swing.DropMode;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 //developed with eclipse windowbuilder plugin
 
 public class WindowUI extends JFrame {
 
     private JPanel contentPane;
+    
+    // text areas
+    private JTextArea mainDocTextArea, comparedDocTextArea;
+    private JButton checkButton;
+    private JLabel exactSimilarityLabel, combinedSimilarityLabel;
 
     /**
      * Launch the application.
@@ -79,12 +86,13 @@ public class WindowUI extends JFrame {
         scrollPane_1.setAlignmentX(Component.LEFT_ALIGNMENT);
         verticalBox.add(scrollPane_1);
         
-        JTextArea textArea_1 = new JTextArea();
-        textArea_1.setLineWrap(true);
-        textArea_1.setDropMode(DropMode.INSERT);
-        textArea_1.setColumns(1);
-        scrollPane_1.setViewportView(textArea_1);
-        textArea_1.setWrapStyleWord(true);
+        // Main Doc
+        mainDocTextArea = new JTextArea();
+        mainDocTextArea.setLineWrap(true);
+        mainDocTextArea.setDropMode(DropMode.INSERT);
+        mainDocTextArea.setColumns(1);
+        scrollPane_1.setViewportView(mainDocTextArea);
+        mainDocTextArea.setWrapStyleWord(true);
         
         Component rigidArea = Box.createRigidArea(new Dimension(10, 10));
         horizontalBox.add(rigidArea);
@@ -101,17 +109,24 @@ public class WindowUI extends JFrame {
         scrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
         verticalBox_1.add(scrollPane);
         
-        JTextArea textArea = new JTextArea();
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        textArea.setDropMode(DropMode.INSERT);
-        textArea.setColumns(1);
-        scrollPane.setViewportView(textArea);
+        // Compared Doc
+        comparedDocTextArea = new JTextArea();
+        comparedDocTextArea.setLineWrap(true);
+        comparedDocTextArea.setWrapStyleWord(true);
+        comparedDocTextArea.setDropMode(DropMode.INSERT);
+        comparedDocTextArea.setColumns(1);
+        scrollPane.setViewportView(comparedDocTextArea);
         
-        JButton btnNewButton = new JButton("Check");
-        btnNewButton.setAlignmentY(Component.TOP_ALIGNMENT);
-        btnNewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        verticalBox_3.add(btnNewButton);
+        // Check Button
+        checkButton = new JButton("Check");
+        checkButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                checkButtonPressed();
+            }
+        });
+        checkButton.setAlignmentY(Component.TOP_ALIGNMENT);
+        checkButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        verticalBox_3.add(checkButton);
         
         Box horizontalBox_1 = Box.createHorizontalBox();
         horizontalBox_1.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -134,12 +149,20 @@ public class WindowUI extends JFrame {
         Box verticalBox_4 = Box.createVerticalBox();
         horizontalBox_1.add(verticalBox_4);
         
-        JLabel lblNewLabel_4 = new JLabel("New label");
-        lblNewLabel_4.setAlignmentY(Component.TOP_ALIGNMENT);
-        verticalBox_4.add(lblNewLabel_4);
+        // Result Labels
+        exactSimilarityLabel = new JLabel("New label");
+        exactSimilarityLabel.setAlignmentY(Component.TOP_ALIGNMENT);
+        verticalBox_4.add(exactSimilarityLabel);
         
-        JLabel lblNewLabel_6 = new JLabel("New label");
-        lblNewLabel_6.setAlignmentY(Component.TOP_ALIGNMENT);
-        verticalBox_4.add(lblNewLabel_6);
+        combinedSimilarityLabel = new JLabel("New label");
+        combinedSimilarityLabel.setAlignmentY(Component.TOP_ALIGNMENT);
+        verticalBox_4.add(combinedSimilarityLabel);
     }
+    
+    // Event helper methods
+    private void checkButtonPressed() {
+        // call main, send documents as parameters
+    }
+    
+    
 }
