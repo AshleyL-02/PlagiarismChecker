@@ -15,6 +15,8 @@ import javax.swing.DropMode;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 
+//developed with eclipse windowbuilder plugin
+
 public class WindowUI extends JFrame {
 
     private JPanel contentPane;
