@@ -15,7 +15,7 @@ public class Main {
         //  variable e represents how to create a converter object with a file name
         Converter c = new Converter("i love dOGs so, much amazing");
         Converter d = new Converter("I LOVE dogs so much! extraordinary");
-        Converter e = new Converter(new Scanner(new File("hello.txt")));
+        //Converter e = new Converter(new Scanner(new File("hello.txt")));
 
         //demonstrates how to retrieve the Set<String> of n-grams for each document (Converter)
         Set<String> cNGrams = c.getNGrams();

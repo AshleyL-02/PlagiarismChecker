@@ -1,5 +1,3 @@
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -17,14 +15,11 @@ import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-//developed with eclipse windowbuilder plugin
+//boilerplate swing design code written with eclipse windowbuilder plugin
 
 /*
- * The java.awt.TextArea could be monitored for changes by adding a TextListener for TextEvents. In the JTextComponent based components, changes are broadcasted from the model via a DocumentEvent to DocumentListeners. The DocumentEvent gives the location of the change and the kind of change if desired. The code fragment might look something like:
-
-    DocumentListener myListener = ??;
-    JTextArea myArea = ??;
-    myArea.getDocument().addDocumentListener(myListener);
+ * The java.awt.TextArea could be monitored for changes by adding a TextListener for TextEvents,
+ * look at oracle docs for textArea for more.
  */
 
 public class WindowUI extends JFrame {
@@ -37,25 +32,9 @@ public class WindowUI extends JFrame {
     private JLabel exactSimilarityLabel, combinedSimilarityLabel;
 
     /**
-     * Launch the application.
-     */
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    WindowUI frame = new WindowUI();
-//                    frame.setVisible(true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
-
-    /**
      * Create the frame.
      */
-    public WindowUI(ActionListener checkButtonActionListener) {
+    public WindowUI() {
         setPreferredSize(new Dimension(600, 400));
         setMinimumSize(new Dimension(400, 300));
         setSize(new Dimension(610, 511));
@@ -127,7 +106,11 @@ public class WindowUI extends JFrame {
         
         // Check Button
         checkButton = new JButton("Check");
-        checkButton.addActionListener(checkButtonActionListener);
+        checkButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                displaySimilarityScores();
+            }
+        });
         checkButton.setAlignmentY(Component.TOP_ALIGNMENT);
         checkButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         verticalBox_3.add(checkButton);
@@ -163,12 +146,11 @@ public class WindowUI extends JFrame {
         verticalBox_4.add(combinedSimilarityLabel);
     }
     
-    // Display information in/out methods
-    public DocumentPair getDocumentPair() {
-        return new DocumentPair(mainDocTextArea.getText(), comparedDocTextArea.getText())
-    }
-    public void displaySimilarityScores(DocumentPair docs) {
-        
+    //called whenever check button is pressed
+    private void displaySimilarityScores() {
+        DocumentPair docs = new DocumentPair(mainDocTextArea.getText(), comparedDocTextArea.getText());
+        exactSimilarityLabel.setText("" + docs.getExactSimilarityScore());
+        combinedSimilarityLabel.setText("" + docs.getCombinedSimilarityScore());;
     }
     
 }

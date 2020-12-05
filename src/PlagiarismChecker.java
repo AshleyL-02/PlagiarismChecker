@@ -1,21 +1,19 @@
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 
 // A PlagiarismChecker checks the similarity between two texts
 public class PlagiarismChecker {
     //application window
     private static WindowUI appWindow;
 
-    public static void main(String[] args) {  
-        
-        // create button action listener
-        ActionListener checkButtonActionListener = new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                checkButtonPressed();
-            }
-        }
-        
+    public static void main(String[] args) throws FileNotFoundException { 
+        SynonymMap.setupMap();     
+        createAppWindow();
+    }
+    
+    private static void createAppWindow() {        
         // create application window
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -27,9 +25,5 @@ public class PlagiarismChecker {
                 }
             }
         });
-        
-        // subscribe to button events
-
     }
-
 }

@@ -1,23 +1,39 @@
 import java.util.*;
 import java.io.*;
 
+// static methods to prevent re-parsing of file
 public class SynonymMap {
-
+    private static final String SYNONYM_FILE_NAME = "src/synonyms.txt";
+    
     // stores the thesaurus.
-    private Map<String, Set<String>> synonyms;
-
-    // post: constructs a new SynonymMap object.
-    public SynonymMap() throws FileNotFoundException {
-        File f = new File("synonyms.txt");
+    private static Map<String, Set<String>> synonyms;
+    
+    // called once to parse file
+    public static void setupMap() throws FileNotFoundException{
+        File f = new File(SYNONYM_FILE_NAME);
         Scanner scanner = new Scanner(f);
         synonyms = new HashMap<String, Set<String>>();
         while (scanner.hasNextLine()) {
             addLine(new Scanner(scanner.nextLine()));
         }
+        scanner.close();
+    }
+    
+    // post: returns true if at least one word from each of the provided Strings are synonyms
+    public static boolean synonymInSet(String nGram, String nGramOther) {
+        List<String> nGramSplitted = new ArrayList<String>(Arrays.asList(nGram.split(" ")));
+        List<String> nGramOtherSplitted = new ArrayList<String>(Arrays.asList(nGramOther.split(" ")));
+        for (int i = 0; i < nGramOtherSplitted.size(); i++) {
+            if (areSynonyms(nGramOtherSplitted.get(i), nGramSplitted.get(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    // post: adds one line of the synonyms.txt document to the thesaurus.
-    private void addLine(Scanner scanner) {
+    // post: constructor helper method
+    //      adds one line of the synonyms.txt document to the thesaurus.
+    private static void addLine(Scanner scanner) {
         Queue<String> words = new LinkedList<String>();
         while (scanner.hasNext()) {
             words.add(scanner.next().toLowerCase());
@@ -39,19 +55,7 @@ public class SynonymMap {
     }
 
     // post: returns true if the strings are synonyms or if they are the same.
-    public boolean areSynonyms(String s1, String s2) {
+    private static boolean areSynonyms(String s1, String s2) {
         return synonyms.containsKey(s1) && synonyms.get(s1).contains(s2);
-    }
-
-    // post: returns true if at least one word from each of the provided Strings are synonyms
-    public boolean synonymInSet(String nGram, String nGramOther) {
-        List<String> nGramSplitted = new ArrayList<String>(Arrays.asList(nGram.split(" ")));
-        List<String> nGramOtherSplitted = new ArrayList<String>(Arrays.asList(nGramOther.split(" ")));
-        for (int i = 0; i < nGramOtherSplitted.size(); i++) {
-            if (areSynonyms(nGramOtherSplitted.get(i), nGramSplitted.get(i))) {
-                return true;
-            }
-        }
-        return false;
     }
 }

@@ -3,7 +3,6 @@
 //The Comparer class does the comparison between two documents and returns a value that represents the
 //percent similarity of the first document to the second document (n-gram equality)
 
-import java.io.*;
 import java.util.*;
 
 public class Comparer {
@@ -35,11 +34,10 @@ public class Comparer {
     //post: returns a double score (out of 100.00) that is number of n-grams in that are exactly the same
     //between the two documents divided by the total number of n-grams of the document
     //suspected of plagiarism. also initializes the (double) synonymScore field
-    private void compareNGrams() throws FileNotFoundException {
+    private void compareNGrams() {
         // choose smaller set
         Set<String> ngrams = ngrams1;
         Set<String> ngramsOther = ngrams2;
-        SynonymMap synonyms = new SynonymMap();
         if (ngrams2.size() < ngrams1.size()) {
             ngrams = ngrams2;
             ngramsOther = ngrams1;
@@ -53,7 +51,7 @@ public class Comparer {
                 copied++;
             } else {
                 for (String ngramOther : ngramsOther) {
-                    if (synonyms.synonymInSet(ngram, ngramOther)) {
+                    if (SynonymMap.synonymInSet(ngram, ngramOther)) {
                         similar++;
                     }
                 }

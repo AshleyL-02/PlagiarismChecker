@@ -1,26 +1,25 @@
 
 // Represents a pair of texts to compare similarity
 public class DocumentPair {
-//    private String mainNGrams;
-//    private String comparedNGrams;
-    
-    private int exactSimilarityScore;
-    private int combinedSimilarityScore;
+    private double exactSimilarityScore;
+    private double combinedSimilarityScore;
     
     // compares documents
     public DocumentPair(String mainDocument, String comparedDocument) {
         Converter main = new Converter(mainDocument);
         Converter compared = new Converter(comparedDocument);
         
-        Comparer compareCD = new Comparer(c, d);
+        Comparer comparer = new Comparer(main, compared);
+        this.exactSimilarityScore = comparer.getExactScore();
+        this.combinedSimilarityScore = comparer.getSynonymScore();
         
     }
     
-    public int getExactSimilarityPercent(){
-        
+    public double getExactSimilarityScore(){
+        return this.exactSimilarityScore;
     }
-    public int getCombinedSimilarityPercent() {
-        
+    public double getCombinedSimilarityScore() {
+        return this.combinedSimilarityScore;
     }
 
 }
