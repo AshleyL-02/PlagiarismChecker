@@ -26,6 +26,7 @@ public class Converter {
     //
     //post: splits the document into its tokens and stores it into the List<String> document field.
     //then calls the private helper method convert to convert the document into it's n-grams
+    // n-grams begin with a space character and are separated by spaces (e.g " hello world")
     public Converter(Scanner document) {
         this.document = new ArrayList<>();
         while (document.hasNext()) {
@@ -33,6 +34,8 @@ public class Converter {
         }
         this.ngrams = new HashSet<String>(this.document.size(), (float) 0.75);
         convert("", 0);
+        
+        System.out.println(ngrams.toString());
     }
 
     //post: returns the Set<String> of n-grams for the document

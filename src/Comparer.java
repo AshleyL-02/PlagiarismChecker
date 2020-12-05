@@ -5,6 +5,7 @@
 
 import java.util.*;
 
+//TODO: ngram size is 0, can't divide by zero for percent
 public class Comparer {
 
     //Set<String> of n-grams for the document that is being suspected for plagiarism

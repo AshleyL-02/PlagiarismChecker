@@ -50,7 +50,7 @@ public class WindowUI extends JFrame {
         verticalBox_3.setAlignmentY(Component.TOP_ALIGNMENT);
         contentPane.add(verticalBox_3);
         
-        JLabel lblNewLabel_3 = new JLabel("Instrutions: Paste document in left, document to check against in right.");
+        JLabel lblNewLabel_3 = new JLabel("Instrutions: Paste document in left, document to check against in right. Must be >=4 words.");
         lblNewLabel_3.setAlignmentY(Component.TOP_ALIGNMENT);
         lblNewLabel_3.setAlignmentX(Component.CENTER_ALIGNMENT);
         verticalBox_3.add(lblNewLabel_3);
