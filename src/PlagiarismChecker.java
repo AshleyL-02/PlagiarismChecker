@@ -1,6 +1,4 @@
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
 // A PlagiarismChecker checks the similarity between two texts
@@ -9,7 +7,8 @@ public class PlagiarismChecker {
     private static WindowUI appWindow;
 
     public static void main(String[] args) throws FileNotFoundException { 
-        SynonymMap.setupMap();     
+        SynonymMap.setupMap();
+        
         createAppWindow();
     }
     

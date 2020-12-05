@@ -1,14 +1,14 @@
 import java.util.*;
 import java.io.*;
 
-// static methods to prevent re-parsing of file
+// !!! static methods to prevent re-parsing of file (ask TA about this)
 public class SynonymMap {
     private static final String SYNONYM_FILE_NAME = "src/synonyms.txt";
     
     // stores the thesaurus.
     private static Map<String, Set<String>> synonyms;
     
-    // called once to parse file
+    // called once by main method to parse file
     public static void setupMap() throws FileNotFoundException{
         File f = new File(SYNONYM_FILE_NAME);
         Scanner scanner = new Scanner(f);

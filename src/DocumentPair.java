@@ -1,5 +1,5 @@
 
-// Represents a pair of texts to compare similarity
+// Represents a pair of texts that are compared for similarity
 public class DocumentPair {
     private double exactSimilarityScore;
     private double combinedSimilarityScore;
