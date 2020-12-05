@@ -137,11 +137,11 @@ public class WindowUI extends JFrame {
         horizontalBox_1.add(verticalBox_4);
         
         // Result Labels
-        exactSimilarityLabel = new JLabel("New label");
+        exactSimilarityLabel = new JLabel("--");
         exactSimilarityLabel.setAlignmentY(Component.TOP_ALIGNMENT);
         verticalBox_4.add(exactSimilarityLabel);
         
-        combinedSimilarityLabel = new JLabel("New label");
+        combinedSimilarityLabel = new JLabel("--");
         combinedSimilarityLabel.setAlignmentY(Component.TOP_ALIGNMENT);
         verticalBox_4.add(combinedSimilarityLabel);
     }
@@ -149,8 +149,8 @@ public class WindowUI extends JFrame {
     //called whenever check button is pressed
     private void displaySimilarityScores() {
         DocumentPair docs = new DocumentPair(mainDocTextArea.getText(), comparedDocTextArea.getText());
-        exactSimilarityLabel.setText("" + docs.getExactSimilarityScore());
-        combinedSimilarityLabel.setText("" + docs.getCombinedSimilarityScore());;
+        exactSimilarityLabel.setText(docs.getExactSimilarityScore() + " %");
+        combinedSimilarityLabel.setText(docs.getCombinedSimilarityScore() + " %");;
     }
     
 }

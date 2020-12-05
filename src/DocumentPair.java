@@ -11,7 +11,7 @@ public class DocumentPair {
         
         Comparer comparer = new Comparer(main, compared);
         this.exactSimilarityScore = comparer.getExactScore();
-        this.combinedSimilarityScore = comparer.getSynonymScore();
+        this.combinedSimilarityScore = comparer.getSynonymScore() + this.exactSimilarityScore;
         
     }
     

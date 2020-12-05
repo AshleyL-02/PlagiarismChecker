@@ -38,7 +38,6 @@ public class Converter {
             this.ngrams = new HashSet<String>(this.document.size(), (float) 0.75);
             convert("", 0);
         }
-        System.out.println(ngrams.toString());
     }
 
     //post: returns the Set<String> of n-grams for the document
