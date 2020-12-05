@@ -32,34 +32,42 @@ public class Comparer {
         compareNGrams();
     }
 
-    //post: returns a double score (out of 100.00) that is number of n-grams in that are exactly the same
+    //post: returns a double score (percent out of 100.00) that is number of n-grams in that are exactly the same
     //between the two documents divided by the total number of n-grams of the document
     //suspected of plagiarism. also initializes the (double) synonymScore field
+    // if either ngram set is empty, scores are 0.0%
     private void compareNGrams() {
-        // choose smaller set
-        Set<String> ngrams = ngrams1;
-        Set<String> ngramsOther = ngrams2;
-        if (ngrams2.size() < ngrams1.size()) {
-            ngrams = ngrams2;
-            ngramsOther = ngrams1;
-        }
+        // if either ngram set is empty, scores are 0
+        if(ngrams1.isEmpty() || ngrams2.isEmpty()) {
+            exactScore =0;
+            synonymScore =0;
+        } else {
+            // choose smaller set
+            Set<String> ngrams = ngrams1;
+            Set<String> ngramsOther = ngrams2;
+            if (ngrams2.size() < ngrams1.size()) {
+                ngrams = ngrams2;
+                ngramsOther = ngrams1;
+            }
 
-        // iterate over smaller set
-        int copied = 0;
-        int similar = 0;
-        for (String ngram : ngrams) {
-            if (ngramsOther.contains(ngram)) {
-                copied++;
-            } else {
-                for (String ngramOther : ngramsOther) {
-                    if (SynonymMap.synonymInSet(ngram, ngramOther)) {
-                        similar++;
+            // iterate over smaller set
+            int copied = 0;
+            int similar = 0;
+            for (String ngram : ngrams) {
+                if (ngramsOther.contains(ngram)) {
+                    copied++;
+                } else {
+                    for (String ngramOther : ngramsOther) {
+                        if (SynonymMap.synonymInSet(ngram, ngramOther)) {
+                            similar++;
+                        }
                     }
                 }
             }
+            
+            synonymScore = (double) ((int) (((double) similar / (double) ngrams1.size() * 100.00) * 100.00) / 100.00);
+            exactScore = (double) ((int) (((double) copied / (double) ngrams1.size() * 100.00) * 100.00) / 100.00);
         }
-        synonymScore = (double) ((int) (((double) similar / (double) ngrams1.size() * 100.00) * 100.00) / 100.00);
-        exactScore = (double) ((int) (((double) copied / (double) ngrams1.size() * 100.00) * 100.00) / 100.00);
     }
     
     public double getExactScore() {
