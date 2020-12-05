@@ -32,9 +32,12 @@ public class Converter {
         while (document.hasNext()) {
             this.document.add(cleanToken(document.next()));
         }
-        this.ngrams = new HashSet<String>(this.document.size(), (float) 0.75);
-        convert("", 0);
-        
+        if (this.document.size() < 4) {
+            this.ngrams = new HashSet<String>();
+        } else {
+            this.ngrams = new HashSet<String>(this.document.size(), (float) 0.75);
+            convert("", 0);
+        }
         System.out.println(ngrams.toString());
     }
 
