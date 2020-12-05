@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 // !!! static methods to prevent re-parsing of file (ask TA about this)
+// implement stemming?
 public class SynonymMap {
     private static final String SYNONYM_FILE_NAME = "src/synonyms.txt";
     
