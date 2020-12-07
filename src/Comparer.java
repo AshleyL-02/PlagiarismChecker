@@ -5,7 +5,6 @@
 
 import java.util.*;
 
-//TODO: ngram size is 0, can't divide by zero for percent
 public class Comparer {
 
     //Set<String> of n-grams for the document that is being suspected for plagiarism
@@ -28,7 +27,7 @@ public class Comparer {
     public Comparer(Converter c1, Converter c2) {
         ngrams1 = c1.getNGrams();
         ngrams2 = c2.getNGrams();
-        
+
         compareNGrams();
     }
 
@@ -65,12 +64,12 @@ public class Comparer {
                     }
                 }
             }
-            
+
             synonymScore = (double) ((int) (((double) similar / (double) ngrams1.size() * 100.00) * 100.00) / 100.00);
             exactScore = (double) ((int) (((double) copied / (double) ngrams1.size() * 100.00) * 100.00) / 100.00);
         }
     }
-    
+
     public double getExactScore() {
         return exactScore;
     }
@@ -81,18 +80,19 @@ public class Comparer {
     //post: returns the similarity score categorization that includes synonyms
     public String getSynonymScoreMessage() {
         String ret = "When including synonyms, the amount plagiarized is approximately ";
-        if (synonymScore == 100.00) {
-            return ret + "all of it: " + synonymScore + "%";
-        } else if (synonymScore < 100.00 && synonymScore >= 80.00) {
-            return ret + "almost all of it: " + synonymScore + "%";
-        } else if (synonymScore < 80.00 && synonymScore >= 60.00) {
-            return ret + "most of it: " + synonymScore + "%";
-        } else if (synonymScore < 60.00 && synonymScore >= 40.00) {
-            return ret + "half of it: " + synonymScore + "%";
-        } else if (synonymScore < 40.00 && synonymScore >= 20.00) {
-            return ret + "a small part of it: " + synonymScore + "%";
+        double score = synonymScore + exactScore;
+        if (score == 100.00) {
+            return ret + "all of it: " + score + "%";
+        } else if (score < 100.00 && score >= 80.00) {
+            return ret + "almost all of it: " + score + "%";
+        } else if (score < 80.00 && score >= 60.00) {
+            return ret + "most of it: " + score + "%";
+        } else if (score < 60.00 && score >= 40.00) {
+            return ret + "half of it: " + score + "%";
+        } else if (score < 40.00 && score >= 20.00) {
+            return ret + "a small part of it: " + score + "%";
         } else {
-            return ret + "a negligible part of it: " + synonymScore + "%";
+            return ret + "a negligible part of it: " + score + "%";
         }
     }
 }
