@@ -56,6 +56,7 @@ public class Comparer {
             for (String ngram : ngrams) {
                 if (ngramsOther.contains(ngram)) {
                     copied++;
+                    similar++;
                 } else {
                     for (String ngramOther : ngramsOther) {
                         if (SynonymMap.synonymInSet(ngram, ngramOther)) {
