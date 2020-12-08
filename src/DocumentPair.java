@@ -1,6 +1,6 @@
 //Group 29
 //Emma Chen, Ashley Luty, Joshua Wang
-//The DocumentPair class represents a pair of texts that are compared for similarity
+//The DocumentPair class represents a pair of texts that are compared for similarity. Used primarily for the UI
 
 public class DocumentPair {
     
