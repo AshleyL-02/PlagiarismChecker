@@ -8,6 +8,10 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
+
+        //set up the synonym map before use IMPORTANT DO NOT DELETE!!!!
+        SynonymMap.setupMap(); //-> DO NOT DELETE THIS
+
         //EXAMPLE CODE BELOW FOR EXTRA CLARIFICATION
         //
         //demonstrates how to create a converter object two ways
@@ -20,16 +24,17 @@ public class Main {
         //demonstrates how to retrieve the Set<String> of n-grams for each document (Converter)
         Set<String> cNGrams = c.getNGrams();
         Set<String> dNGrams = d.getNGrams();
+        System.out.println(cNGrams);
+        System.out.println(dNGrams);
 
         //demonstrates how to get a similarity score for two documents
         //  EXAMPLE BELOW: in the statement below, we suspect that the document of c has been
         //  plagiarized from the document of d thus, Converter c is written before Converter d
         //  (in the parameters)
         Comparer compareCD = new Comparer(c, d);
-        System.out.println(cNGrams);
-        System.out.println(dNGrams);
-        System.out.println(compareCD.getExactScore());
-        System.out.println(compareCD.getSynonymScore());
+        System.out.println("The exact similarity score of document c and document d is " +
+                            compareCD.getExactScore() + "%");
+        System.out.println(compareCD.getSynonymExactScoreMessage());
 
         //TEST HERE
     }
