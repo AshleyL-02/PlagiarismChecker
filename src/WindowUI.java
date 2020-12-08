@@ -1,3 +1,6 @@
+//Group 29
+//Joshua Wang, Ashley Luty, Emma Chen
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
