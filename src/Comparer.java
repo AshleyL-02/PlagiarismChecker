@@ -14,7 +14,10 @@ public class Comparer {
     //off of
     private Set<String> ngrams2;
 
+    //approximate score (out of 100.00) of the amount of text of the first document that is copied from the
+    //second
     private double exactScore;
+
     //approximate score (out of 100.00) of how SIMILAR (not just copied text) the two documents are to each
     //other
     private double synonymScore;
@@ -55,12 +58,17 @@ public class Comparer {
             for (String ngram : ngrams) {
                 if (ngramsOther.contains(ngram)) {
                     copied++;
-                    similar++;
+                    ngramsOther.remove(ngram);
                 } else {
+                    Set<String> toRemove = new HashSet<String>();
                     for (String ngramOther : ngramsOther) {
                         if (SynonymMap.synonymInSet(ngram, ngramOther)) {
+                            toRemove.add(ngramOther);
                             similar++;
                         }
+                    }
+                    for (String remove : toRemove) {
+                        ngramsOther.remove(remove);
                     }
                 }
             }
@@ -73,6 +81,7 @@ public class Comparer {
     public double getExactScore() {
         return exactScore;
     }
+    
     public double getSynonymScore() {
         return synonymScore;
     }
