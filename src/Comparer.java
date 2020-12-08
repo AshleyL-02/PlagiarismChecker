@@ -77,16 +77,20 @@ public class Comparer {
             exactScore = (double) ((int) (((double) copied / (double) ngrams1.size() * 100.00) * 100.00) / 100.00);
         }
     }
-
+    
+    //returns the exactScore field of the Comparer object (how much of the first provided document is exactly the 
+    //same as the second provided document).
     public double getExactScore() {
         return exactScore;
     }
-    
+       
+    //returns the synonymScore field of the Comparer object (how much of the first provided is SIMILAR to the 
+    //second provided document (not including portions of text that are exactly the same, only portions with synonyms)
     public double getSynonymScore() {
         return synonymScore;
     }
 
-    //post: returns the similarity score categorization that includes synonyms
+    //post: returns the similarity score categorization that includes synonyms (uses the exactScore + synonymScore)
     public String getSynonymExactScoreMessage() {
         String ret = "When including synonyms, the amount plagiarized is approximately ";
         double score = synonymScore + exactScore;
