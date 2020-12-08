@@ -1,7 +1,10 @@
+//Group 29
+//Joshua Wang, Ashley Luty, Emma Chen
+// A PlagiarismChecker checks the similarity between two texts. When the class is run, the user interface should pop up.
+
 import java.awt.EventQueue;
 import java.io.FileNotFoundException;
 
-// A PlagiarismChecker checks the similarity between two texts
 public class PlagiarismChecker {
     //application window
     private static WindowUI appWindow;
