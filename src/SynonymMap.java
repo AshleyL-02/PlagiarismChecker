@@ -1,9 +1,13 @@
+//Group 29
+//Joshua Wang, Ashley Luty, Emma Chen
+//A SynonymMap class represents a thesaurus of synonyms for some words. 
+
 import java.util.*;
 import java.io.*;
 
-// !!! static methods to prevent re-parsing of file (ask TA about this)
-// implement stemming?
 public class SynonymMap {
+    
+    // file used to create the synonym map 
     private static final String SYNONYM_FILE_NAME = "src/synonyms.txt";
     
     // stores the thesaurus.
