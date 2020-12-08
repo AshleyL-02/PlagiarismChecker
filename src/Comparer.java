@@ -87,7 +87,7 @@ public class Comparer {
     }
 
     //post: returns the similarity score categorization that includes synonyms
-    public String getSynonymScoreMessage() {
+    public String getSynonymExactScoreMessage() {
         String ret = "When including synonyms, the amount plagiarized is approximately ";
         double score = synonymScore + exactScore;
         if (score == 100.00) {
