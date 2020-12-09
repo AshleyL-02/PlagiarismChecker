@@ -10,6 +10,7 @@ public class PlagiarismChecker {
     private static WindowUI appWindow;
 
     public static void main(String[] args) throws FileNotFoundException { 
+        // called once, to parse synonyms file
         SynonymMap.setupMap();
         
         createAppWindow();

@@ -18,33 +18,31 @@ import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-//boilerplate swing design code written with eclipse windowbuilder plugin
-
-/*
- * The java.awt.TextArea could be monitored for changes by adding a TextListener for TextEvents,
- * look at oracle docs for textArea for more.
- */
+// A WindowUI is a user interface window that provides areas to input text,
+//  and displays similarity scores
+// Boilerplate Swing design code written with eclipse WindowBuilder plugin
 
 public class WindowUI extends JFrame {
-
-    private JPanel contentPane;
+    // window text
+    private static final String WINDOW_TITLE = "Plagiarism Checker";
+    private static final String INSTRUCTIONS = "Instrutions: Paste document in left, "
+            + "document to check against in right. Must be >=4 words.";
     
-    // text areas
+    // text areas for user-inputted documents
     private JTextArea mainDocTextArea, comparedDocTextArea;
-    private JButton checkButton;
+    
+    // similarity score labels
     private JLabel exactSimilarityLabel, combinedSimilarityLabel;
 
-    /**
-     * Create the frame.
-     */
+    // post: creates the ui window
     public WindowUI() {
         setPreferredSize(new Dimension(600, 400));
         setMinimumSize(new Dimension(400, 300));
         setSize(new Dimension(610, 511));
-        setTitle("Plagiarism Checker");
+        setTitle(WINDOW_TITLE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 520);
-        contentPane = new JPanel();
+        JPanel contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
@@ -53,7 +51,7 @@ public class WindowUI extends JFrame {
         verticalBox_3.setAlignmentY(Component.TOP_ALIGNMENT);
         contentPane.add(verticalBox_3);
         
-        JLabel lblNewLabel_3 = new JLabel("Instrutions: Paste document in left, document to check against in right. Must be >=4 words.");
+        JLabel lblNewLabel_3 = new JLabel(INSTRUCTIONS);
         lblNewLabel_3.setAlignmentY(Component.TOP_ALIGNMENT);
         lblNewLabel_3.setAlignmentX(Component.CENTER_ALIGNMENT);
         verticalBox_3.add(lblNewLabel_3);
@@ -107,8 +105,8 @@ public class WindowUI extends JFrame {
         comparedDocTextArea.setColumns(1);
         scrollPane.setViewportView(comparedDocTextArea);
         
-        // Check Button
-        checkButton = new JButton("Check");
+        // Check Button and action listener
+        JButton checkButton = new JButton("Check");
         checkButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 displaySimilarityScores();
@@ -149,7 +147,10 @@ public class WindowUI extends JFrame {
         verticalBox_4.add(combinedSimilarityLabel);
     }
     
-    //called whenever check button is pressed
+    // pre: called automatically whenever check button is pressed
+    // post: takes String text from main and compared text areas,
+    //      displays resulting exact and combined similarity scores 
+    //      (percents out of main document)
     private void displaySimilarityScores() {
         DocumentPair docs = new DocumentPair(mainDocTextArea.getText(), comparedDocTextArea.getText());
         exactSimilarityLabel.setText(docs.getExactSimilarityScore() + " %");
