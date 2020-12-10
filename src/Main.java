@@ -17,6 +17,8 @@ public class Main {
         //demonstrates how to create a converter object two ways
         //  EXAMPLE BELOW: variable c and d represent how to create a converter object with a String
         //  variable e represents how to create a converter object with a file name
+        //
+        //to test the code, you can just replace the string within each converter
         Converter c = new Converter("i love dOGs so, much amazing");
         Converter d = new Converter("I LOVE dogs so much! extraordinary");
         //Converter e = new Converter(new Scanner(new File("hello.txt")));
