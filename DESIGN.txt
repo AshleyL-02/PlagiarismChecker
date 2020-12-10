@@ -1,0 +1,166 @@
+Group 29
+Ashley Luty, Joshua Wang, Emma Chen
+
+Converter Class
+___________________________
+
+Overview
+
+The Converter class is the class that process the two documents before they go through the check. The converter
+class does the n-gram seperation.
+
+Fields
+
+The Converter class contains two private fields. One field is named "document" and is of type List<String>
+and represents the provided document that has been converted into a List where every element within the 
+list is one token from the document added in the order that the document is written in. For example,
+if the provided document were the String "i love pizza" the elements within the List would be "i", "love",
+and "pizza" stored in that order.
+
+The other field of the Converter class is named "ngrams" and is of type Set<String> and stores the document
+split up into n-grams of four. For example, if the provided document was the String "i love pizza so much",
+the Set field would store two strings of n-grams: "i love pizza so" and "love pizza so much". N-grams are used
+in natural language processing to process documents, and in our case, to help us convert the provided document
+into a form that we can more easily compare with other documents.
+
+Constructors
+
+The Converter class contains two constructors. The first one is a constructor that takes in a String representation
+of the provided document. The String constructor then converts the provided String into a Scanner and passes
+the Scanner into the other constructor. We chose to do this because we found while writing the constructors that
+there was a lot of redundant code between both constructors that could easily be factored out. 
+
+The second constructor, as mentioned before, takes in a provided document of type Scanner. We chose to include
+a second constructor of type Scanner so that the user had the choice to use a file version of their document 
+rather than a String if they preferred. Within the Scanner constructor, the provided document is put into
+the List field form as described before and a call to a private method called convert will do the n-gram
+separation. In addition, before adding a token from the provided document to the List field, a call to the private
+cleanToken method will change the token to lower case letters and remove any extraneous punctuation.
+
+N-Gram Separation
+
+The N-gram separation portion of the Converter class is done within a private method called convert that is called
+within the constructor of the Converter class. If we implemented convert using an iterative approach, we would face
+a huge time complexity and runtime issue if the provided document were really large. Thus, we decided to employ a
+recursive enumeration approach for the behavior.
+
+The convert class takes in two parameters, a String called "ngram" and an int "indexIntoDocument." The String "ngram"
+is the recursive result that is being built up with every recursive call until it reaches the base case (which is when
+the String contains four tokens to build n-grams of four). Once the current n-gram is done being built, it is added to 
+the Set<String> ngrams field and the recursive call is restarted for a new n-gram. This process continues until the int
+indexIntoDocument parameter is equal to the size of the List field that represents the original provided document.
+
+Comparer Class
+___________________________
+
+Overview
+
+The Comparer class is the class that does the actual plagiarism comparison between the two sets of n-grams for of the
+documents. The class does two kinds of checks, one for exact n-gram similarity and one that checks for synonyms of words
+within n-grams.
+
+Fields and Constructors
+
+Within the constructor of the Comparer class, the first provided Converter is for the document that you suspect has plagiarized
+off of the document of the second provided Converter. The two Set<String> n-gram fields are initialized for both documents and the
+the constructor makes a call to the private helper method called compareNGrams and does the n-gram comparison.
+
+The Comparer class maintains four fields. Two of which are Set<String> which hold the n-gram Set<String> for the two 
+documents that are up for comparison. The first one is called ngrams1 which holds the n-grams Set<String> for the first
+provided Converter document (aka. the one that is suspected of plagiarism). The second one is called ngrams2 which holds
+the n-grams Set<String> for the second provided Converter document (aka. the one that the first document is being compared
+to). The two other fields are doubles called exactScore and synonymScore. exactScore represents how much of the first document
+is EXACTLY the same as the second. synonymScore represents how much of the first document has synonyms to the second document.
+
+N-Gram Comparison
+
+The compareNGrams method is the method that does the actual plagiarism check between the two documents. The compareNGrams 
+method iterates through one of the n-gram Set<String> of the documents and checks whether the other document's n-gram Set<String>
+contains the same n-gram. If so, a counter called copied is incremented. If not, the method then checks whether a synonym of a word
+in the n-gram that is currently being focused on is within an n-gram of the other document. If so, another counter called similar is
+incremented. At the end, these two counters are divided by the size of the n-gram Set<String> of the document being suspected of 
+plagiarism and multiplied by 100.00 to give a percentage score. The copied percentage score is returned by the method as the 
+approximate similarity score (excluding synonyms). The synonym percentage score is stored within the synonymScore field and is used
+in the getSynonymExactScoreMessage (which uses the sum of synonymScore and exactScore) to categorize how plagiarized a document is the 
+the other when including synonyms of words (the synonym similarity score is elaborated on within the Output section of the design guide).
+
+Plagiarism Scores
+
+The exactScore and synonymScore scores are initialized within the compareNGrams method. The categorization that is returned from the
+getSynonymExactScoreMessage is a category of how much the document is plagiarized from the other when including synonyms 
+(exactScore + synonymScore). This is elaborated on in the Output section of the desgin guide.
+
+
+SynonymMap Class
+___________________________
+
+Overview
+
+The SynonymMap class contains a map that maps a lot of words to some of their respective synonyms. It uses the provided 
+synonyms.txt file to initialize that synonym map.
+
+Fields and Construction
+
+The SynonymMap class has one private field of type Map<String, Set<String>> called synonyms and a class constant called SYNONYM_FILE_NAME.
+The class constant is the name of the file that is used to help construct the synonyms Map<String, Set<String>> field. The synonyms 
+Map<String, Set<String>> field is a map that maps a word to some of its synonyms. This field is used when comparing n-grams to check for 
+synonyms.
+
+Most of the methods and fields within the SynonymMap class are static methods. Therefore, the SynonymMap class doesn't necessarily have a
+constructor but instead has a static method called setupMap which will work in tandem with a private helper method called addLine to take
+all the words and the synonyms of words and store it into the synonyms Map<String, Set<String>> field. 
+
+Checking for Synonyms
+
+In the compareNGrams method of the Comparer class, it also calculates a synonym similarity percentage that is used to get the synonym
+similarity score categorization. With the help of the synonymsInSet method that takes in two individual n-grams and checks if there 
+are any synonyms in them. The areSynonyms methods that takes in two words is also used within the compareNGrams method of the Comparer
+class to help calculate the synonym similarity percentage score.
+
+Output
+___________________________
+
+Overview
+
+The ouput of our entire program is an approximate percentage of the amount of text plagiarised from the document that is being
+checked for plagiarism (copied directly) and a synonym similarity categorization (determing how much was plagiarized when we 
+include synonyms). We have decided to name these value the exact similarity score and the synonym similarity score respectively. 
+
+Exact Similarity Score
+
+The n-grams of the documents are processed by the compareNGrams method in the Comparer class which will return ONLY the exact similarity
+score. Every time there is the same n-gram in both documents, a counter (that counts how many n-grams the two documents have in common) is 
+incremented. At the very end, this counter is divided by the total number of n-grams in the document that is being checked for 
+plagiarism to come up with an approximate plagiarism percentage. While the method is working on the similarity score, it is also doing
+the same thing with the synonym similarity score (but including synonyms) This method has been elaborated more in the Comparer 
+class section of the design guide. 
+
+Synonym Similarity Score/Categorization
+
+As for the synonym similarity score, we have included a method within the Comparer class called getSynonymExactScoreMessage and getSynonymScore.
+Whereas getSynonymScore only returns the synonymScore field of the Comparer object (percentage of the first document that has synonyms to the
+second document), getSynonymExactScoreMessage returns a categorization of how much of the first document was plagiarized off of the second 
+(synonyms AND copied portions of text). getSynonymExactScoreMessage uses the sum of the exactScore and the synonymScore whereas the method 
+getSynonymScore uses only synonymScore. We recommend using getSynonymExactScoreMessage due to some margin of error when we try to compare documents
+for synonym similarity using the n-grams technique. We cannot say the  synonym similarity score is an exact percentage because, although the
+n-grams technique can reduce the number of false positives (text that is thought to be plagiarised but actually isn't) found between two 
+documents, it is still not perfect. In addition, because we treat each n-gram as a single entity (rather than comprised of multiple tokens),
+if one word doesn't match between two n-grams, then they are automatically labeled as unequal. Thus, rather than just using this similarity 
+score as the output of our program, we have decided to use the synonym similarity score to as a way to categorize the amount plagiarized based
+on synonyms as approximately "all," "almost all," "most of it, "half of it," "a small part of it," and "a negligible amount."
+
+User Interface
+___________________________
+
+The User Interface comes up when the PlagiarismChecker class is run. Then, a window pops up with two text boxes and displays the exact
+similarity score and the synonym similarity score.The three classes called, WindowUI, DocumentPair, and PlagiarismChecker all relate to
+the UI. The class WindowsUI is code that makes the design for the UI. When the Plagiarism Checker class is called, the UI pops up in 
+another window. The DocumentPair class represents the pair of documents that are being compared for equality and is used by the UI.
+
+Console
+___________________________
+
+We have provided a class called Main that includes example code on how to run our project. Our UI is limited in what it can do and a
+more comprehensive version of our program can be tested out in the Main class. This is recommended testing area to use when testing our
+code.
+

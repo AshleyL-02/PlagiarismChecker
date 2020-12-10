@@ -1,0 +1,28 @@
+Group 29
+Emma Chen, Joshua Wang, Ashley Luty
+
+For our project, because we were trying to build a plagiarism checker, we had to do a lot of self
+studying on natural language processing and methods used to compare two documents against one
+another.
+
+We all enjoyed learning more about natural language processing. It was a topic that we didn't go to
+in depth with in our lectures but was more interesting for us to learn about as we kept researching
+for our project. 
+
+During this project, we learned about the challenges of coordinating different parts of a program
+with different people. We found that we not only had to write a guide for the project itself, but
+also for each other, to guide our partners through our code so that they could effectively write
+code that would work in tandem with it. We also found it challenging to write code when there isn't
+a "correct answer" for it. For example, in class, we are expected to write code that will produce
+a certain output and if that output isn't achieved, we know there must be something wrong with our
+code. But for this project, we had to know for ourselves what we wanted the output to achieve and 
+how it would achieve that output. It was challenging for us to have fill in our own gaps in knowledge
+and take initiative in deciding what exactly did we want this project to do. It was also really difficult
+for us to have to settle on our project. Our project doesn't work perfectly and has some obvious kinks in
+it (especially regarding synonym similarity) and because of our lack of coding ability, in some cases, we
+just had to settle with what we have.
+
+We all found the Internet especially helpful for learning during this project. Because we were
+building a plagiarism checker which requires more knowledge on natural language processing, we were
+at a bit of a loss at the beginning of the project because we did not know what to do. But researching
+online and posting questions to code forums helped us gain a clearer idea of how to build our project.
