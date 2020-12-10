@@ -1,22 +1,18 @@
 //Group 29
 //Emma Chen, Ashley Luty, Joshua Wang
-//The DocumentPair class represents a pair of texts that are compared for similarity. Used primarily for the UI
+// The DocumentPair class represents a pair of texts that are compared for similarity. Used by UI
 
 public class DocumentPair {
-    
-    //represents how much the first provided document has plagiarized off of the second one exactly (copied 
-    //portions of text)
+    // percent the main document exactly plagiarized off of the compared document
     private double exactSimilarityScore;
     
-    //represents how much the first provided document has plagiarized off of the second one when including
-    //synonyms (copied portions of text and related synonyms)
+    // percent the main document plagiarized off of the compared document, with both exact and synonym similarity
     private double combinedSimilarityScore;
     
-    //pre: the first provided String, mainDocument, is the document that is being checked for plagiarism. the 
-    //second provided String, comparedDocument, is the document that mainDocument is being checked against.
-    //
+    //pre: mainDocument is the document that is being checked for plagiarism,
+    //      comparedDocument is the document that mainDocument is being checked against
     //post: initializes the exact similarity score and the combined similarity score (exact + synonym similarity) fields
-    //for the pair of documents
+    //  for the pair of documents
     public DocumentPair(String mainDocument, String comparedDocument) {
         Converter main = new Converter(mainDocument);
         Converter compared = new Converter(comparedDocument);
@@ -27,16 +23,14 @@ public class DocumentPair {
         
     }
     
-    //returns a percentage of how much the first provided document has plagiarized off of the second one exactly (copied 
-    //portions of text)
+    // returns percent (/100) the main document exactly plagiarized off of the compared document
     public double getExactSimilarityScore(){
         return this.exactSimilarityScore;
     }
     
-    //returns a percentage of how much the first provided document has plagiarized off of the second one exactly (copied 
-    //portions of text)
+    // returns percent (/100) the main document exactly plagiarized off of the compared document, with both 
+    //      exact and synonym similarity
     public double getCombinedSimilarityScore() {
         return this.combinedSimilarityScore;
     }
-
 }

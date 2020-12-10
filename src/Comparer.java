@@ -47,7 +47,7 @@ public class Comparer {
                     exactMatches++;
                 } else {
                     for (String ngramOther : ngramsOther) {
-                        if (SynonymMap.synonymInSet(ngram, ngramOther)) {
+                        if (SynonymMap.areSynonymNGrams(ngram, ngramOther)) {
                             synonymMatches++;
                             break;
                         }

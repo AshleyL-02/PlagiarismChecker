@@ -1,6 +1,7 @@
 //Group 29
 //Joshua Wang, Ashley Luty, Emma Chen
-//A SynonymMap class represents a thesaurus of synonyms for some words. 
+//A SynonymMap class represents a thesaurus of synonyms for some words, and can check if phrases
+//  match based on shared synonyms
 
 import java.util.*;
 import java.io.*;
@@ -10,7 +11,7 @@ public class SynonymMap {
     // file used to create the synonym map 
     private static final String SYNONYM_FILE_NAME = "src/synonyms.txt";
     
-    // stores the thesaurus.
+    // maps word to its synonyms?
     private static Map<String, Set<String>> synonyms;
     
     // called once by main method to parse file
@@ -24,20 +25,24 @@ public class SynonymMap {
         scanner.close();
     }
     
-    // post: returns true if at least one word from each of the provided Strings are synonyms
-    public static boolean synonymInSet(String nGram, String nGramOther) {
-        List<String> nGramSplitted = new ArrayList<String>(Arrays.asList(nGram.split(" ")));
-        List<String> nGramOtherSplitted = new ArrayList<String>(Arrays.asList(nGramOther.split(" ")));
-        for (int i = 0; i < nGramOtherSplitted.size(); i++) {
-            if (areSynonyms(nGramOtherSplitted.get(i), nGramSplitted.get(i))) {
-                return true;
+    // pre: takes two n-grams of same token length, all lowercase
+    // post: returns true if n-grams match word-by-word; words that are synonyms are matches
+    public static boolean areSynonymNGrams(String nGram, String nGramOther) {
+        String[] nGramSplitted = nGram.split(" ");
+        String[] nGramOtherSplitted = nGramOther.split(" ");
+        for (int i = 0; i < nGramOtherSplitted.length; i++) {
+            String word = nGramSplitted[i];
+            String wordOther = nGramOtherSplitted[i];
+            if (!word.equals(wordOther) && !areSynonyms(wordOther, word)) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
-    // post: constructor helper method
-    //      adds one line of the synonyms.txt document to the thesaurus.
+    // pre: constructor helper method; 
+    //      takes Scanner of a synonym file, where each line in file is synonyms separated by a space
+    // post: adds one line of the synonym document to the thesaurus
     private static void addLine(Scanner scanner) {
         Queue<String> words = new LinkedList<String>();
         while (scanner.hasNext()) {
