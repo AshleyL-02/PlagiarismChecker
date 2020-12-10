@@ -22,12 +22,11 @@ public class Comparer {
         compareNGrams(c1.getNGrams(), c2.getNGrams());
     }
 
-    //post: returns a double score (percent out of 100.00) that is number of n-grams in that are exactly the same
-    //between the two documents divided by the total number of n-grams of the document
-    //suspected of plagiarism. also initializes the (double) synonymScore field
-    // if either ngram set is empty, scores are 0.0%
+    // pre: takes two sets representing n-grams of same token length; the first is for the document that is being 
+    //      suspected for plagiarism, the second is the document being plagiarized off of
+    // post: initializes the two similarity scores for the documents, exact and synonym-only scores (percent /100
+    //      first document matches second); if either ngram set is empty, scores are 0.0%
     private void compareNGrams(Set<String> ngramsMain, Set<String> ngramsCompared) {
-        // if either ngram set is empty, scores are 0
         if(ngramsMain.isEmpty() || ngramsCompared.isEmpty()) {
             exactScore =0;
             synonymScore =0;
@@ -61,14 +60,13 @@ public class Comparer {
         }
     }
     
-    //returns the exactScore field of the Comparer object (how much of the first provided document is exactly the 
-    //same as the second provided document).
+    // post: returns the percent (/100) the first document matches exactly the second
     public double getExactScore() {
         return exactScore;
     }
        
-    //returns the synonymScore field of the Comparer object (how much of the first provided is SIMILAR to the 
-    //second provided document (not including portions of text that are exactly the same, only portions with synonyms)
+    // post: returns the percent (/100) the first document synonym-matches the second document, 
+    //      not including exact matches
     public double getSynonymScore() {
         return synonymScore;
     }
