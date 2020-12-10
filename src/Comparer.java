@@ -46,17 +46,12 @@ public class Comparer {
             for (String ngram : ngrams) {
                 if (ngramsOther.contains(ngram)) {
                     exactMatches++;
-                    ngramsOther.remove(ngram);
                 } else {
-                    Set<String> toRemove = new HashSet<String>();
                     for (String ngramOther : ngramsOther) {
                         if (SynonymMap.synonymInSet(ngram, ngramOther)) {
-                            toRemove.add(ngramOther);
                             synonymMatches++;
+                            break;
                         }
-                    }
-                    for (String remove : toRemove) {
-                        ngramsOther.remove(remove);
                     }
                 }
             }
