@@ -6,6 +6,9 @@
 import java.util.*;
 
 public class Converter {
+    
+    //the length of every n-gram
+    public static final int N_GRAM_LENGTH = 4;
 
     //List<String> document is the user-provided document split by its tokens
     private List<String> document;
@@ -31,7 +34,7 @@ public class Converter {
         while (document.hasNext()) {
             this.document.add(cleanToken(document.next()));
         }
-        if (this.document.size() < 4) {
+        if (this.document.size() < N_GRAM_LENGTH) {
             this.ngrams = new HashSet<String>();
         } else {
             this.ngrams = new HashSet<String>(this.document.size(), (float) 0.75);
@@ -48,9 +51,9 @@ public class Converter {
     private void convert(String nGram, int indexIntoDocument) {
         if (indexIntoDocument < document.size()) {
             StringTokenizer nGramTokenizer = new StringTokenizer(nGram);
-            if (nGramTokenizer.countTokens() == 4) {
+            if (nGramTokenizer.countTokens() == N_GRAM_LENGTH) {
                 ngrams.add(nGram);
-                convert("", indexIntoDocument - 3);
+                convert("", indexIntoDocument - (N_GRAM_LENGTH - 1));
             } else {
                 nGram += " " + document.get(indexIntoDocument);
                 convert(nGram, indexIntoDocument + 1);
