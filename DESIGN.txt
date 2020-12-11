@@ -62,14 +62,10 @@ within n-grams.
 Fields and Constructors
 
 Within the constructor of the Comparer class, the first provided Converter is for the document that you suspect has plagiarized
-off of the document of the second provided Converter. The two Set<String> n-gram fields are initialized for both documents and the
-the constructor makes a call to the private helper method called compareNGrams and does the n-gram comparison.
+off of the document of the second provided Converter. The constructor makes a call to the private helper method called compareNGrams,
+inputting the two Set<String> n-grams from the Converters, and does the n-gram comparison.
 
-The Comparer class maintains four fields. Two of which are Set<String> which hold the n-gram Set<String> for the two 
-documents that are up for comparison. The first one is called ngrams1 which holds the n-grams Set<String> for the first
-provided Converter document (aka. the one that is suspected of plagiarism). The second one is called ngrams2 which holds
-the n-grams Set<String> for the second provided Converter document (aka. the one that the first document is being compared
-to). The two other fields are doubles called exactScore and synonymScore. exactScore represents how much of the first document
+The Comparer class maintains two fields, doubles called exactScore and synonymScore. exactScore represents how much of the first document
 is EXACTLY the same as the second. synonymScore represents how much of the first document has synonyms to the second document.
 
 N-Gram Comparison
